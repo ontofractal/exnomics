@@ -1,18 +1,25 @@
 defmodule Exnomics do
   @moduledoc """
-  Documentation for Exnomics.
+  Exnomics API client built using Tesla
   """
+  @api_key Application.get_env(:exnomics, :api_key)
+  @base_url "https://api.nomics.com/v1"
+
+  use Tesla
 
   @doc """
-  Hello world.
+  Configure a client connection
 
-  ## Examples
+  # Returns
 
-      iex> Exnomics.hello()
-      :world
-
+  Tesla.Env.client
   """
-  def hello do
-    :world
+  @spec new() :: Tesla.Env.client()
+  def new do
+    Tesla.client([
+      {Tesla.Middleware.BaseUrl, @base_url},
+      {Tesla.Middleware.Query, [key: @api_key]},
+      {Tesla.Middleware.JSON, []}
+    ])
   end
 end
