@@ -23,6 +23,8 @@ defmodule Exnomics.MixProject do
   defp deps do
     [
       {:tesla, "~> 1.2.1"},
+      {:jason, "~> 1.0"},
+      {:mix_test_watch, "~> 0.8", only: :dev}
     ]
   end
 end
