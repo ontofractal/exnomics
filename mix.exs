@@ -24,7 +24,8 @@ defmodule Exnomics.MixProject do
     [
       {:tesla, "~> 1.2.1"},
       {:jason, "~> 1.0"},
-      {:mix_test_watch, "~> 0.8", only: :dev}
+      {:mix_test_watch, "~> 0.8", only: :dev},
+      {:typed_struct, ">= 0.0.0"}
     ]
   end
 end
