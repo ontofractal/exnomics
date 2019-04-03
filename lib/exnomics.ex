@@ -19,7 +19,8 @@ defmodule Exnomics do
     Tesla.client([
       {Tesla.Middleware.BaseUrl, @base_url},
       {Tesla.Middleware.Query, [key: @api_key]},
-      {Tesla.Middleware.JSON, []}
+      {Exnomics.ResponseMapper, []},
+      {Tesla.Middleware.JSON, []},
     ])
   end
 end
