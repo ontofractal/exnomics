@@ -5,11 +5,12 @@ defmodule Exnomics.Market do
 
   use TypedStruct
 
-  @typedoc "A person"
+  @typedoc "A market"
   typedstruct do
     field :exchange, String.t(), enforce: true
     field :market, String.t(), enforce: true
     field :base, String.t(), enforce: true
     field :quote, String.t(), enforce: true
   end
+
 end
