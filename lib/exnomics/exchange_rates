@@ -1,0 +1,86 @@
+defmodule Exnomics.ExchangeRates do
+  @moduledoc """
+  API calls for all endpoints tagged `ExchangeRates`.
+  """
+
+
+  @doc """
+  Exchange Rates
+  The exchange rates endpoint returns the current exchange rates used by Nomics to convert prices from markets into USD. This contains Fiat currencies as well as a BTC and ETH quote prices. This endpoint helps normalize data across markets as well as to provide localization for users.  Currently, this endpoint does not support historical data, but this feature is planned.
+
+  ## Parameters
+
+  - connection (Exnomics.Connection): Connection to server
+  - opts (KeywordList): [optional] Optional parameters
+  ## Returns
+
+  {:ok, [%ExchangeRate{}, ...]} on success
+  {:error, info} on failure
+  """
+  @spec get_exchange_rates(Tesla.Env.client, keyword()) :: {:ok, list(Exnomics.Model.ExchangeRate.t)} | {:error, Tesla.Env.t}
+  def get_exchange_rates(connection, _opts \\ []) do
+    |> get("/exchange-rates")
+  end
+
+  @doc """
+  Exchange Rates History
+  Exchange rates for every point in a time range. This endpoint can be used with other interval endpoints to convert values into a desired quote currency.  The currency parameter must be a Nomics Quote Currency, to get all Nomics Quote Currencies, use the &#x60;/exchange-rates&#x60; endpoint for all current rates.
+
+  ## Parameters
+
+  - connection (Exnomics.Connection): Connection to server
+  - currency (String.t): Currency ID
+  - start (String.t): Start time of the interval in RFC3339 (URI escaped)
+  - opts (KeywordList): [optional] Optional parameters
+    - :end (String.t): End time of the interval in RFC3339 (URI escaped). If not provided, the current time is used.
+  ## Returns
+
+  {:ok, [%InlineResponse20014{}, ...]} on success
+  {:error, info} on failure
+  """
+  @spec get_exchange_rates_history(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, list(Exnomics.Model.InlineResponse20014.t)} | {:error, Tesla.Env.t}
+  def get_exchange_rates_history(connection, currency, start, opts \\ []) do
+    optional_params = %{
+      :"end" => :query
+    }
+    %{}
+    |> method(:get)
+    |> url("/exchange-rates/history")
+    |> add_param(:query, :"currency", currency)
+    |> add_param(:query, :"start", start)
+    |> add_optional_params(optional_params, opts)
+    |> Enum.into([])
+    |> (&Connection.request(connection, &1)).()
+    |> decode([%Exnomics.Model.InlineResponse20014{}])
+  end
+
+  @doc """
+  Exchange Rates Interval
+  Exchange rates to convert from USD over a time interval. This endpoint can be used with other interval endpoints to convert values into a desired quote currency.
+
+  ## Parameters
+
+  - connection (Exnomics.Connection): Connection to server
+  - start (String.t): Start time of the interval in RFC3339 (URI escaped)
+  - opts (KeywordList): [optional] Optional parameters
+    - :end (String.t): End time of the interval in RFC3339 (URI escaped). If not provided, the current time is used.
+  ## Returns
+
+  {:ok, [%InlineResponse20015{}, ...]} on success
+  {:error, info} on failure
+  """
+  @spec get_exchange_rates_interval(Tesla.Env.client, String.t, keyword()) :: {:ok, list(Exnomics.Model.InlineResponse20015.t)} | {:error, Tesla.Env.t}
+  def get_exchange_rates_interval(connection, start, opts \\ []) do
+    optional_params = %{
+      :"end" => :query
+    }
+    %{}
+    |> method(:get)
+    |> url("/exchange-rates/interval")
+    |> add_param(:query, :"start", start)
+    |> add_optional_params(optional_params, opts)
+    |> Enum.into([])
+    |> (&Connection.request(connection, &1)).()
+    |> decode([%Exnomics.Model.InlineResponse20015{}])
+  end
+end
