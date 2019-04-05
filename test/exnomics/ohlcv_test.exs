@@ -12,8 +12,8 @@ defmodule Exnomics.OhlcvTest do
                "1d",
                "binance",
                "BTCUSDT",
-               start: "2018-03-14T00-00-00Z",
-               end: "2018-04-14T00-00-00Z"
+               start: ~N[2018-04-14 00:00:00],
+               end: ~N[2018-05-14 00:00:00]
              )
 
     assert length(ohlcvs) == 31
@@ -26,8 +26,8 @@ defmodule Exnomics.OhlcvTest do
                "1d",
                "binance",
                "BTCUSDT",
-               start: "2018-04-14T00-00-00Z",
-               end: "2018-05-14T00-00-00Z"
+               start: ~N[2018-04-14 00:00:00],
+               end: ~N[2018-05-14 00:00:00]
              )
   end
 end
