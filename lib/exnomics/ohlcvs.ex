@@ -2,7 +2,7 @@ defmodule Exnomics.Ohlcvs do
   @moduledoc """
   API calls for all endpoints tagged `candles`.
   """
-  alias Exnomics.Ohlcv
+  alias Exnomics.{Ohlcv, Utils}
   use Tesla
 
   @doc """
@@ -35,7 +35,9 @@ defmodule Exnomics.Ohlcvs do
   @spec get_exchange_candles(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
           {:ok, list(Ohlcv.t())} | {:error, Tesla.Env.t()}
   def get_exchange_candles(client, interval, exchange, market, opts \\ []) do
-    query_kw = [interval: interval, exchange: exchange, market: market] ++ opts
+    query_kw =
+      [interval: interval, exchange: exchange, market: market] ++
+        Utils.maybe_parse_datetime_opts(opts)
 
     get(client, "/exchange_candles", query: query_kw)
   end

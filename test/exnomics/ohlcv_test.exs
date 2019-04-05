@@ -16,6 +16,14 @@ defmodule Exnomics.OhlcvTest do
                end: ~N[2018-05-14 00:00:00]
              )
 
+    assert {:ok, %{body: _ = [%Ohlcv{} | _]}} =
+             get_exchange_candles(
+               @client,
+               "1d",
+               "binance",
+               "BTCUSDT"
+             )
+
     assert length(ohlcvs) == 31
   end
 
