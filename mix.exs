@@ -26,7 +26,8 @@ defmodule Exnomics.MixProject do
       {:jason, "~> 1.0"},
       {:mix_test_watch, "~> 0.8", only: :dev},
       {:typed_struct, ">= 0.0.0"},
-      {:map_keys, ">= 0.0.0"}
+      {:map_keys, ">= 0.0.0"},
+      {:timex, "~> 3.5"}  
     ]
   end
 end
