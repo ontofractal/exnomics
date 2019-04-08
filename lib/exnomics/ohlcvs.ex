@@ -41,4 +41,14 @@ defmodule Exnomics.Ohlcvs do
 
     get(client, "/exchange_candles", query: query_kw)
   end
+
+  @spec get_aggregated_candles(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, list(Ohlcv.t())} | {:error, Tesla.Env.t()}
+  def get_aggregated_candles(client, interval, currency, opts \\ []) do
+    query_kw =
+      [interval: interval, currency: currency] ++
+        Utils.maybe_parse_datetime_opts(opts)
+
+    get(client, "/candles", query: query_kw)
+  end
 end

@@ -13,6 +13,6 @@ defmodule Exnomics.Ohlcv do
     field :close, float(), enforce: true
     field :high, float(), enforce: true
     field :volume, float(), enforce: true
-    field :num_trades, integer(), enforce: true
+    field :num_trades, integer()
   end
 end

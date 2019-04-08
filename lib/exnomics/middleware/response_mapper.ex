@@ -21,7 +21,7 @@ defmodule Exnomics.ResponseMapper do
           url =~ ~r|/markets$| ->
             &struct!(Market, &1)
 
-          url =~ ~r|/exchange_candles$| ->
+          url =~ ~r|[(/exchange_candles$)(/candles$)]| ->
             &struct!(Ohlcv, &1)
 
           true ->
