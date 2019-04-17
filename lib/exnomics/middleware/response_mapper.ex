@@ -1,6 +1,6 @@
 defmodule Exnomics.ResponseMapper do
   @behaviour Tesla.Middleware
-  alias Exnomics.{Market, Ohlcv}
+  alias Exnomics.{Market, Ohlcv, ExchangeRate}
 
   @moduledoc """
   Parses and maps API responses to corresponding structs using idiomatic underscored atom keys, etc.
@@ -21,8 +21,11 @@ defmodule Exnomics.ResponseMapper do
           url =~ ~r|/markets$| ->
             &struct!(Market, &1)
 
-          url =~ ~r|[(/exchange_candles$)(/candles$)]| ->
+          url =~ ~r|/exchange_candles$| or url =~ ~r|/candles$| ->
             &struct!(Ohlcv, &1)
+
+          url =~ ~r|/exchange-rates$| ->
+            &struct!(ExchangeRate, &1)
 
           true ->
             {:error, "Response mapper middleware has no builder for this request url: #{env.url}"}
