@@ -1,5 +1,5 @@
 defmodule Exnomics.OhlcvTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import Exnomics.Ohlcvs
   alias Exnomics.Ohlcv
   doctest Exnomics

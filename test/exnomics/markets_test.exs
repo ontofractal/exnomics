@@ -1,5 +1,5 @@
 defmodule Exnomics.MarketsTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import Exnomics.Markets
   alias Exnomics.Market
   doctest Exnomics

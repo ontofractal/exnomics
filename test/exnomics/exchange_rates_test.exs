@@ -1,5 +1,5 @@
 defmodule Exnomics.ExchangeRatesTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import Exnomics.ExchangeRates
   alias Exnomics.ExchangeRate
   @client Exnomics.new()
