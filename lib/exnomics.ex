@@ -7,6 +7,8 @@ defmodule Exnomics do
   defdelegate get_markets(client, opts), to: Markets
   defdelegate get_markets(client), to: Markets
 
+  defdelegate get_tickers(client), to: Currencies
+
   defdelegate get_exchange_candles(client, interval, exchange, market, opts), to: Ohlcvs
 
   defdelegate get_ohlcvs(client, interval, exchange, market, opts),

@@ -27,6 +27,12 @@ defmodule Exnomics.ResponseMapper do
           url =~ ~r|/exchange-rates$| ->
             &struct!(ExchangeRate, &1)
 
+          url =~ ~r|/prices$| ->
+            & &1
+
+          url =~ ~r|/currencies/.+$| ->
+            & &1
+
           true ->
             {:error, "Response mapper middleware has no builder for this request url: #{env.url}"}
         end
