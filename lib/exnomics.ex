@@ -50,9 +50,27 @@ defmodule Exnomics do
     ])
   end
 
+  def markets(opts \\ []) do
+    get_markets(new(), opts)
+  end
+
   def tickers!() do
     new()
     |> get_tickers()
     |> unwrap()
+  end
+
+  def ohlcvs!(interval, exchange, market, opts \\ []) do
+    new()
+    |> get_ohlcvs(interval, exchange, market, opts)
+    |> unwrap()
+  end
+
+  defp unwrap({:ok, %{body: body}}) do
+    body
+  end
+
+  defp unwrap({:error, err}) do
+    raise(err)
   end
 end
