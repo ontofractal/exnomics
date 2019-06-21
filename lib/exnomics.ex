@@ -49,4 +49,10 @@ defmodule Exnomics do
       {Tesla.Middleware.JSON, []}
     ])
   end
+
+  def tickers!() do
+    new()
+    |> get_tickers()
+    |> unwrap()
+  end
 end
